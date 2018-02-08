@@ -13,6 +13,9 @@ public class TestDrive {
 	/*
 	 * config.xml 설정 파일 만들고
 	 * xml 방식으로 autowire 설정하기
+	 * (Spring06DIXml 예제 참고)
 	 * 
+	 * config.xml 설정으로 1-3의 생성자를 이용해서 name값 초기화
+	 * (Spring03GetBean 예제 참고)
 	 */
 }
