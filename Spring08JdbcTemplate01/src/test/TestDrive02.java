@@ -57,6 +57,15 @@ public class TestDrive02 {
 		sql02.append("WHERE d.deptno = e.deptno ");
 		sql02.append("AND d.deptno = ?");
 		
+		/*
+		 * ResultSetExtractor 제네릭에 들어갈 타입은
+		 * JOIN할 테이블 중 부모 엔티티에 해당하는 클래스 타입을 넣는다.
+		 */
+		
+		/*
+		 *  익명 클래스 (Anonymous class):
+		 *  아래 코드에서 66번 중괄호 시작부터 95번 중괄호 끝나는 부분까지 
+		 */
 		ResultSetExtractor<Department> extractor = new ResultSetExtractor<Department>() {
 
 			@Override

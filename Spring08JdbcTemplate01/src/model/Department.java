@@ -1,6 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Department implements Serializable {
@@ -10,7 +13,7 @@ public class Department implements Serializable {
 	private Integer deptno;
 	private String dname;
 	private String loc;
-	private List<Employee> employeeList;	// 한 부서는 여러 직원을 가질 수 있는 관계
+	private List<Employee> employeeList = new ArrayList<>(); // 한 부서는 여러 직원을 가질 수 있는 관계
 	
 	// 2. 기본생성자
 	public Department() {}
