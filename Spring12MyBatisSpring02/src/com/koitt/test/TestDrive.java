@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import com.koitt.dao.PetMapper;
 import com.koitt.model.Owner;
 import com.koitt.model.Pet;
 
@@ -68,8 +69,25 @@ public class TestDrive {
 		map.put("birthDate", new Date());
 		count = session.insert("com.koitt.dao.PetMapper.insertPet2", map);
 		System.out.println(count + "개의 행이 추가되었습니다.");
+		
+		/*
+		 *  9. 아래의 문장과 같은 결과가 나온다.
+		 *  Pet pet = session.selectOne("com.koitt.dao.PetMapper.selectPet", 1); 
+		 */
+		PetMapper mapper = session.getMapper(PetMapper.class);
+		pet = mapper.selectPet(1);
+		System.out.println(pet);
+		
+		// 10.
+		owner = mapper.selectHong("HONG");
+		System.out.println("hong: " + owner);
 	}
 }
+
+
+
+
+
 
 
 
