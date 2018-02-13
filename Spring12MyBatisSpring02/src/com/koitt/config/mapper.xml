@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.koitt.dao.PetMapper">
+  	
   	<resultMap type="Pet" id="petResultMap">
   		<id property="petId" column="pet_id" />
   		<result property="petName" column="pet_name"/>
@@ -11,4 +12,35 @@
   		<result property="price" column="price"/>
   		<result property="birthDate" column="birth_date"/>
   	</resultMap>
+  	
+  	<resultMap type="com.koitt.model.Owner" id="ownerResultMap">
+  		<id property="ownerName" column="owner_name" />
+  		<collection property="petList" ofType="Pet">
+  			<id property="petId" column="pet_id" />
+  			<result property="petName" column="pet_name"/>
+  			<result property="ownerName" column="owner_name"/>
+  			<result property="price" column="price"/>
+  			<result property="birthDate" column="birth_date"/>
+  		</collection>
+  	</resultMap>
+  	
+  	<select id="selectPet" parameterType="int" resultMap="petResultMap">
+  		SELECT * FROM pet WHERE pet_id = #{petId}
+  	</select>
+  	
+  	<select id="selectPet2" parameterType="int" resultType="Pet">
+  		SELECT * FROM pet WHERE pet_id = #{petId}
+  	</select>
+  	
+  	<select id="selectPetAll" resultType="Pet">
+  		SELECT * FROM pet
+  	</select>
+  	
   </mapper>
+  
+  
+  
+  
+  
+  
+  
