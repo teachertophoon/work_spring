@@ -78,9 +78,22 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public void delete(String no) {
-		// TODO Auto-generated method stub
-		
+	public void delete(String no) throws BoardException {
+		try {
+			String sql = "DELETE FROM board WHERE no = ?";
+			template.update(sql, no);
+			
+		} catch (Exception e) {
+			throw new BoardException(e.getMessage());
+		}
 	}
 
 }
+
+
+
+
+
+
+
+

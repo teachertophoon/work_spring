@@ -23,5 +23,5 @@ public interface BoardDao {
 	public void update(Board board);
 	
 	// 글 삭제하기
-	public void delete(String no);
+	public void delete(String no) throws BoardException;
 }

@@ -82,7 +82,36 @@ public class BoardWebController {
 		// redirect: 뒤에 입력한 주소로 이동
 		return "redirect:board-list.do";
 	}
+	
+	// 글 삭제 확인 화면
+	@RequestMapping(value="/board-remove.do", method=RequestMethod.GET)
+	public String removeConfirm(Model model,
+			@RequestParam(value="no", required=true) String no) {
+		
+		model.addAttribute("no", no);
+		
+		return "board-remove-confirm";
+	}
+	
+	// 글 삭제 후, 글 목록 화면으로 이동
+	@RequestMapping(value="/board-remove.do", method=RequestMethod.POST)
+	public String remove(Model model, String no) {
+		try {
+			service.remove(no);
+			
+		} catch (BoardException e) {
+			model.addAttribute("error", "server");
+		}
+		
+		return "redirect:board-list.do";
+	}
 }
+
+
+
+
+
+
 
 
 

@@ -45,9 +45,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void remove(String no) {
-		// TODO Auto-generated method stub
-		
+	public void remove(String no) throws BoardException {
+		dao.delete(no);
 	}
 
 }

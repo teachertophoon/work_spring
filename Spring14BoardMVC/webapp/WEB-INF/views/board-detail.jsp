@@ -13,6 +13,6 @@
 		<dt>내용</dt><dd>${ board.content }</dd>
 	</dl>
 	<a href="board-list.do">글 목록으로 이동</a>
-
+	<a href="board-remove.do?no=${ board.no }">삭제하기</a>
 </body>
 </html>
