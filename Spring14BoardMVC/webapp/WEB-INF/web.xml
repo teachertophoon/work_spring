@@ -4,6 +4,10 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
 	<!--
 		스프링은 기본으로 servlet-name 앨리먼트의 이름을 가진
 		*-servlet.xml 파일을 WEB-INF 폴더에서 찾는다.

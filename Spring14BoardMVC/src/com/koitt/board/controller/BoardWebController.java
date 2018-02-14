@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.koitt.board.model.Board;
 import com.koitt.board.model.BoardException;
@@ -43,4 +45,51 @@ public class BoardWebController {
 		 */
 		return "board-list";
 	}
+	
+	// 글 상세 화면
+	@RequestMapping(value="/board-detail.do", method=RequestMethod.GET)
+	public String detail(Model model,
+			@RequestParam(value="no", required=true) String no) {
+		Board board = null;
+		
+		try {
+			board = service.detail(no);
+		} catch (BoardException e) {
+			model.addAttribute("error", "server");
+		}
+		
+		model.addAttribute("board", board);
+		
+		return "board-detail";
+	}
+	
+	// 글 작성 화면
+	@RequestMapping(value="/board-add.do", method=RequestMethod.GET)
+	public String add() {		
+		return "board-add";
+	}
+	
+	// 글 추가 후, 글 목록 화면으로 이동
+	@RequestMapping(value="/board-add.do", method=RequestMethod.POST)
+	public String add(Model model, Board board) {
+		try {
+			service.add(board);
+			
+		} catch (BoardException e) {
+			model.addAttribute("error", "server");
+		}
+		
+		// redirect: 뒤에 입력한 주소로 이동
+		return "redirect:board-list.do";
+	}
 }
+
+
+
+
+
+
+
+
+
+
