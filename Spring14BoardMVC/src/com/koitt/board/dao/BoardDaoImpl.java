@@ -66,9 +66,18 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int boardCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int boardCount() throws BoardException {
+		Integer result = null;
+		
+		try {
+			String sql = "SELECT COUNT(*) cnt FROM board";
+			result = template.queryForObject(sql, Integer.class);
+			
+		} catch (Exception e) {
+			throw new BoardException(e.getMessage());
+		}
+		
+		return result;
 	}
 
 	@Override

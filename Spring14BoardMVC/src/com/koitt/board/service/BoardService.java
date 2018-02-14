@@ -17,7 +17,7 @@ public interface BoardService {
 	public List<Board> list() throws BoardException;
 	
 	// 글 개수
-	public int count();
+	public int count() throws BoardException;
 	
 	// 글 수정하기
 	public void modify(Board board) throws BoardException;

@@ -17,7 +17,7 @@ public interface BoardDao {
 	public List<Board> selectAll() throws BoardException;
 	
 	// 게시글 개수 가져오기
-	public int boardCount();
+	public int boardCount() throws BoardException;
 	
 	// 글 수정하기
 	public void update(Board board) throws BoardException;

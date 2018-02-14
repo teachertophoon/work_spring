@@ -33,9 +33,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int count() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int count() throws BoardException {
+		return dao.boardCount();
 	}
 
 	@Override
