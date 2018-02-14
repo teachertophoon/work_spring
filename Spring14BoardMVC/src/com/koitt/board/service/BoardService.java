@@ -20,7 +20,7 @@ public interface BoardService {
 	public int count();
 	
 	// 글 수정하기
-	public void modify(Board board);
+	public void modify(Board board) throws BoardException;
 	
 	// 글 삭제하기
 	public void remove(String no) throws BoardException;

@@ -105,6 +105,41 @@ public class BoardWebController {
 		
 		return "redirect:board-list.do";
 	}
+	
+	// 글 수정하기 화면
+	@RequestMapping(value="/board-modify.do", method=RequestMethod.GET)
+	public String modify(Model model,
+			@RequestParam(value="no", required=true) String no) {
+		Board board = null;
+		
+		try {
+			/*
+			 * 수정하고자 하는 글의 정보를 가져와서
+			 * 글 수정하기 화면에 출력하기 위해 아래와 같이 호출
+			 */
+			board = service.detail(no);
+			
+		} catch (BoardException e) {
+			model.addAttribute("error", "server");
+		}
+		
+		model.addAttribute("board", board);
+		
+		return "board-modify";
+	}
+	
+	// 글 수정한 후, 글 목록 화면으로 이동
+	@RequestMapping(value="/board-modify.do", method=RequestMethod.POST)
+	public String modify(Model model, Board board) {
+		try {
+			service.modify(board);
+			
+		} catch (BoardException e) {
+			model.addAttribute("error", "server");
+		}
+		
+		return "redirect:board-list.do";
+	}
 }
 
 

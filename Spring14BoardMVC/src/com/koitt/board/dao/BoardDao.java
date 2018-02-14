@@ -20,7 +20,7 @@ public interface BoardDao {
 	public int boardCount();
 	
 	// 글 수정하기
-	public void update(Board board);
+	public void update(Board board) throws BoardException;
 	
 	// 글 삭제하기
 	public void delete(String no) throws BoardException;
