@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.koitt.board.dao.BoardDao;
 import com.koitt.board.model.Board;
 import com.koitt.board.model.BoardException;
 
 @Service
+@Transactional
 public class BoardServiceImpl implements BoardService {
 	
 	@Autowired

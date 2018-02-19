@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- 스프링 MVC 컴포넌트들의 디폴트 설정을 가지고 활설화 하기위해 선언 -->
+	<!-- 스프링 MVC 컴포넌트들의 디폴트 설정을 가지고 활성화 하기위해 선언 -->
 	<mvc:annotation-driven></mvc:annotation-driven>
 	
 	<!--
