@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.koitt.board.model.Board;
@@ -51,10 +50,10 @@ public class BoardDaoImpl implements BoardDao {
 		List<Board> list = null;
 		
 		try {
-			String sql = "SELECT * FROM board ORDER BY no DESC";
-			list = template.query(sql, new BeanPropertyRowMapper<Board>(Board.class));
+			list = session.selectList(MAPPER_NS + ".select-all-board");
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new BoardException(e.getMessage());
 		}
 		
@@ -66,10 +65,10 @@ public class BoardDaoImpl implements BoardDao {
 		Integer result = null;
 		
 		try {
-			String sql = "SELECT COUNT(*) cnt FROM board";
-			result = template.queryForObject(sql, Integer.class);
+			result = session.selectOne(MAPPER_NS + ".select-count-board");
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new BoardException(e.getMessage());
 		}
 		
@@ -79,30 +78,21 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public void update(Board board) throws BoardException {
 		try {
-			StringBuilder sql = new StringBuilder();
-			sql.append("UPDATE board SET title = ?, ");
-			sql.append("content = ?, ");
-			sql.append("regdate = CURDATE() ");
-			sql.append("WHERE no = ?");
-			
-			template.update(sql.toString(),
-					board.getTitle(),
-					board.getContent(),
-					board.getNo());
+			session.update(MAPPER_NS + ".update-board", board);
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new BoardException(e.getMessage());
 		}
-		
 	}
 
 	@Override
 	public void delete(String no) throws BoardException {
 		try {
-			String sql = "DELETE FROM board WHERE no = ?";
-			template.update(sql, no);
+			session.delete(MAPPER_NS + ".delete-board", no);
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new BoardException(e.getMessage());
 		}
 	}
