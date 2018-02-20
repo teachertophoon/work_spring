@@ -68,18 +68,14 @@ public class BoardWebController {
 		try {
 			board = boardService.detail(no);
 			
-			// URL Encoding 된 파일명을 다시 Decoding해서 포워딩 
 			filename = board.getAttachment();
-			if (filename != null && !filename.trim().isEmpty()) {
-				filename = URLDecoder.decode(filename, "UTF-8");
-			}
 			
 			imgPath = fileService.getImgPath(request, filename);
 			
 		} catch (BoardException e) {
 			System.out.println(e.getMessage());
 			model.addAttribute("error", "server");
-		} catch (UnsupportedEncodingException e) {
+		} catch (FileException e) {
 			System.out.println(e.getMessage());
 			model.addAttribute("error", "encoding");
 		}
