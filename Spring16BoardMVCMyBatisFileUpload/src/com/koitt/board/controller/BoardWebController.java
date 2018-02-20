@@ -59,10 +59,11 @@ public class BoardWebController {
 	
 	// 글 상세 화면
 	@RequestMapping(value="/board-detail.do", method=RequestMethod.GET)
-	public String detail(Model model,
+	public String detail(Model model, HttpServletRequest request,
 			@RequestParam(value="no", required=true) String no) {
 		Board board = null;
 		String filename = null;
+		String imgPath = null;
 		
 		try {
 			board = boardService.detail(no);
@@ -72,6 +73,8 @@ public class BoardWebController {
 			if (filename != null && !filename.trim().isEmpty()) {
 				filename = URLDecoder.decode(filename, "UTF-8");
 			}
+			
+			imgPath = fileService.getImgPath(request, filename);
 			
 		} catch (BoardException e) {
 			System.out.println(e.getMessage());
@@ -83,6 +86,9 @@ public class BoardWebController {
 		
 		model.addAttribute("board", board);
 		model.addAttribute("filename", filename);
+		if (imgPath != null && !imgPath.trim().isEmpty()) {
+			model.addAttribute("imgPath", imgPath);
+		}
 		
 		return "board-detail";
 	}
