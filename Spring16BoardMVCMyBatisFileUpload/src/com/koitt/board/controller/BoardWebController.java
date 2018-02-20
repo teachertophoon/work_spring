@@ -69,13 +69,16 @@ public class BoardWebController {
 			board = boardService.detail(no);
 			
 			filename = board.getAttachment();
+			if (filename != null && !filename.trim().isEmpty()) {
+				filename = URLDecoder.decode(filename, "UTF-8");
+			}
 			
 			imgPath = fileService.getImgPath(request, filename);
 			
 		} catch (BoardException e) {
 			System.out.println(e.getMessage());
 			model.addAttribute("error", "server");
-		} catch (FileException e) {
+		} catch (UnsupportedEncodingException e) {
 			System.out.println(e.getMessage());
 			model.addAttribute("error", "encoding");
 		}
@@ -172,12 +175,33 @@ public class BoardWebController {
 	
 	// 글 수정한 후, 글 목록 화면으로 이동
 	@RequestMapping(value="/board-modify.do", method=RequestMethod.POST)
-	public String modify(Model model, Board board) {
+	public String modify(HttpServletRequest request,
+			Integer no,
+			String title,
+			String content,
+			@RequestParam("attachment") MultipartFile attachment) {
+		
+		Board board = new Board();
+		board.setNo(no);
+		board.setTitle(title);
+		board.setContent(content);
+		
 		try {
-			boardService.modify(board);
+			// 새롭게 수정할 파일을 서버에 저장
+			fileService.add(request, attachment, board);
+			
+			// 기존 파일명을 가져온다.
+			String toDeleteFilename = boardService.modify(board);
+			
+			// 기존에 있던 파일을 삭제
+			fileService.remove(request, toDeleteFilename);
 			
 		} catch (BoardException e) {
-			model.addAttribute("error", "server");
+			System.out.println(e.getMessage());
+			request.setAttribute("error", "server");
+		} catch (FileException e) {
+			System.out.println(e.getMessage());
+			request.setAttribute("error", "file");
 		}
 		
 		return "redirect:board-list.do";

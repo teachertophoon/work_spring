@@ -22,7 +22,7 @@ public interface FileService {
 	public void remove(HttpServletRequest request, String filename) throws FileException;
 	
 	// 파일 저장 경로 가져오기
-	public String getImgPath(HttpServletRequest request, String filename) throws FileException;
+	public String getImgPath(HttpServletRequest request, String filename);
 }
 
 
