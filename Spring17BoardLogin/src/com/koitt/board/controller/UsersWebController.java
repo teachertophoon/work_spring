@@ -31,7 +31,7 @@ public class UsersWebController {
 	
 	// 사용자 목록
 	@RequestMapping(value="/users-list.do", method=RequestMethod.GET)
-	public String list(Model model) {
+	public String list(Model model, HttpServletRequest req) {
 		List<Users> list = null;
 		
 		try {
@@ -43,6 +43,7 @@ public class UsersWebController {
 		}
 		
 		model.addAttribute("list", list);
+		model.addAttribute("uploadPath", fileService.getUploadPath(req));
 		
 		return "admin/users-list";
 	}

@@ -19,8 +19,11 @@ public interface FileService {
 	// 파일 삭제
 	public void remove(HttpServletRequest request, String filename) throws FileException;
 	
-	// 파일 저장 경로 가져오기
+	// 파일 저장 경로 + 이미지 파일명
 	public String getImgPath(HttpServletRequest request, String filename);
+	
+	// 파일 저장 폴더 경로 가져오기(ContextPath + /upload)
+	public String getUploadPath(HttpServletRequest request);
 }
 
 

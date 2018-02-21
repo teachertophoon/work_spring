@@ -189,6 +189,11 @@ public class FileServiceImpl implements FileService {
 		// 그림파일이 아니면 null값 리턴
 		return null;
 	}
+
+	@Override
+	public String getUploadPath(HttpServletRequest request) {
+		return request.getContextPath() + UPLOAD_FOLDER;
+	}
 }
 
 
