@@ -17,6 +17,14 @@
 		<param-value>/WEB-INF/applicationContext.xml</param-value>
 	</context-param>
 	
+	<!--
+		applicationContext.xml에서 생성한 빈을 다른 서블릿에서 사용하기 위해서는
+		ContextLoaderListener가 필요하다.
+	 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

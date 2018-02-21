@@ -20,7 +20,7 @@
 					<td>${ users.no }</td>
 					<td>${ users.email }</td>
 					<td>${ users.name }</td>
-					<td>${ users.attachment }</td>
+					<%-- <td>${ users.attachment }</td> --%>
 				</tr>
 			</c:forEach>
 		</tbody>
