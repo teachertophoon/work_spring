@@ -7,6 +7,7 @@ CREATE TABLE users (
 	email		VARCHAR(255) NOT NULL,
 	password	VARCHAR(255) NOT NULL,
 	name		VARCHAR(255) NOT NULL,
+	attachment	VARCHAR(255),
 	UNIQUE (email)
 );
 
@@ -21,14 +22,14 @@ CREATE TABLE board (
 );
 
 #DML(Data Manipulation Language)
-INSERT INTO users (email, password, name)
-	VALUES ('teachertophoon@gmail.com', '1234', '정상훈');
+INSERT INTO users (email, password, name, attachment)
+	VALUES ('teachertophoon@gmail.com', '1234', '정상훈', NULL);
 	
-INSERT INTO users (email, password, name)
-	VALUES ('gildong@gmail.com', '5678', '홍길동');
+INSERT INTO users (email, password, name, attachment)
+	VALUES ('gildong@gmail.com', '5678', '홍길동', NULL);
 	
-INSERT INTO users (email, password, name)
-	VALUES ('younghee@gmail.com', '7788', '김영희');
+INSERT INTO users (email, password, name, attachment)
+	VALUES ('younghee@gmail.com', '7788', '김영희', NULL);
 	
 INSERT INTO board (title, content, user_no, regdate, attachment)
 	VALUES ('제목-1', '내용-1', 1, STR_TO_DATE('2018-02-01', '%Y-%m-%d'), NULL);
