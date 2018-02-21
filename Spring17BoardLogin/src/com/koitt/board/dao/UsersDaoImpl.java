@@ -40,9 +40,13 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public void insert(Users users) {
-		// TODO Auto-generated method stub
-		
+	public void insert(Users users) throws UsersException {
+		try {
+			session.insert(MAPPER_NS + ".insert-users", users);
+			
+		} catch (Exception e) {
+			throw new UsersException(e.getMessage());
+		}
 	}
 
 	@Override

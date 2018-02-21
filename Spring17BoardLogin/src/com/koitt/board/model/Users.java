@@ -10,6 +10,7 @@ public class Users implements Serializable {
 	private String email;			// 이메일 (아이디 용도)
 	private String password;		// 비밀번호
 	private String name;			// 이름
+	private String attachment;		// 프로필 사진 파일명
 	private List<Board> boardList;	// 해당 사용자의 게시물 목록
 	/*
 	 * 사용자 한명은 게시물을 여러개 가질 수 있는 일대다(1:N) 관계이므로
@@ -20,11 +21,13 @@ public class Users implements Serializable {
 	public Users() {}
 
 	// 2. 생성자
-	public Users(Integer no, String email, String password, String name) {
+	public Users(Integer no, String email, String password, 
+			String name, String attachment) {
 		this.no = no;
 		this.email = email;
 		this.password = password;
 		this.name = name;
+		this.attachment = attachment;
 	}
 
 	// 3. getter, setter
@@ -68,6 +71,14 @@ public class Users implements Serializable {
 		this.boardList = boardList;
 	}
 
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
+
 	// 4. equals, hashCode 작성
 	@Override
 	public int hashCode() {
@@ -78,6 +89,7 @@ public class Users implements Serializable {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((no == null) ? 0 : no.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((attachment == null) ? 0 : attachment.hashCode());
 		return result;
 	}
 
@@ -114,6 +126,8 @@ public class Users implements Serializable {
 		builder.append(password);
 		builder.append(", name=");
 		builder.append(name);
+		builder.append(", attachment=");
+		builder.append(attachment);
 		builder.append(", boardList=");
 		builder.append(boardList);
 		builder.append("]");

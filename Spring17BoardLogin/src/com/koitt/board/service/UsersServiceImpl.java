@@ -30,8 +30,7 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public void add(Users users) throws UsersException {
-		// TODO Auto-generated method stub
-		
+		dao.insert(users);
 	}
 
 	@Override

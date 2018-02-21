@@ -112,7 +112,11 @@ public class BoardWebController {
 		board.setContent(content);
 		
 		try {
-			fileService.add(request, attachment, board);
+			// 파일 서비스로부터 전달받은 파일명을 VO 객체에 담는다.
+			String filename = fileService.add(request, attachment);
+			board.setAttachment(filename);
+			
+			// 모든 내용을 저장한 VO 객체를 데이터베이스로 전달
 			boardService.add(board);
 			
 		} catch (BoardException e) {
@@ -188,7 +192,8 @@ public class BoardWebController {
 		
 		try {
 			// 새롭게 수정할 파일을 서버에 저장
-			fileService.add(request, attachment, board);
+			String filename = fileService.add(request, attachment);
+			board.setAttachment(filename);
 			
 			// 기존 파일명을 가져온다.
 			String toDeleteFilename = boardService.modify(board);
