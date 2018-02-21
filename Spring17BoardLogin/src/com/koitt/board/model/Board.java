@@ -13,6 +13,7 @@ public class Board implements Serializable {
 	private Integer userNo;		// 사용자 번호
 	private Date regdate;		// 등록일
 	private String attachment;	// 첨부파일명
+	private Users users;		// 사용자 정보
 	
 	// 1. 기본생성자
 	public Board() {}
@@ -77,6 +78,14 @@ public class Board implements Serializable {
 		this.attachment = attachment;
 	}
 
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
 	// 3. hashCode
 	@Override
 	public int hashCode() {
@@ -88,6 +97,7 @@ public class Board implements Serializable {
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((userNo == null) ? 0 : userNo.hashCode());
 		result = prime * result + ((attachment == null) ? 0 : attachment.hashCode());
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
 
@@ -129,6 +139,8 @@ public class Board implements Serializable {
 		builder.append(regdate);
 		builder.append(", attachment=");
 		builder.append(attachment);
+		builder.append(", users=");
+		builder.append(users);
 		builder.append("]");
 		return builder.toString();
 	}	
