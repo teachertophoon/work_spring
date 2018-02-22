@@ -30,7 +30,7 @@ public class UsersWebController {
 	private FileService fileService;
 	
 	// 사용자 목록
-	@RequestMapping(value="/users-list.do", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/users-list.do", method=RequestMethod.GET)
 	public String list(Model model, HttpServletRequest req) {
 		List<Users> list = null;
 		
@@ -99,6 +99,21 @@ public class UsersWebController {
 	public String joinConfirm(Model model, String name) {
 		model.addAttribute("name", name);
 		return "join-confirm";
+	}
+	
+	// 로그인 페이지
+	@RequestMapping(value="/login.do", method=RequestMethod.GET)
+	public String login() {
+		return "login";
+	}
+	
+	// 접근 제한 페이지
+	@RequestMapping(value="/access-denied.do", method=RequestMethod.GET)
+	public String accessDenied(Model model) {
+		
+		model.addAttribute("email", usersService.getPrincipal().getUsername());
+		
+		return "access-denied";
 	}
 }
 
