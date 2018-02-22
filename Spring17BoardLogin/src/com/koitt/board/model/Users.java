@@ -2,16 +2,19 @@ package com.koitt.board.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 // Java bean
 public class Users implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Integer no;				// 회원번호
-	private String email;			// 이메일 (아이디 용도)
-	private String password;		// 비밀번호
-	private String name;			// 이름
-	private String attachment;		// 프로필 사진 파일명
-	private List<Board> boardList;	// 해당 사용자의 게시물 목록
+	private Integer no;					// 회원번호
+	private String email;				// 이메일 (아이디 용도)
+	private String password;			// 비밀번호
+	private String name;				// 이름
+	private String attachment;			// 프로필 사진 파일명
+	private List<Board> boardList;		// 해당 사용자의 게시물 목록
+	private Set<Authority> authorities;	// 해당 사용자의 권한 목록
+	
 	/*
 	 * 사용자 한명은 게시물을 여러개 가질 수 있는 일대다(1:N) 관계이므로
 	 * 위와 같이 List로 필드를 표현한다.
@@ -79,6 +82,14 @@ public class Users implements Serializable {
 		this.attachment = attachment;
 	}
 
+	public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
 	// 4. equals, hashCode 작성
 	@Override
 	public int hashCode() {
@@ -90,6 +101,7 @@ public class Users implements Serializable {
 		result = prime * result + ((no == null) ? 0 : no.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((attachment == null) ? 0 : attachment.hashCode());
+		result = prime * result + ((authorities == null) ? 0 : authorities.hashCode());
 		return result;
 	}
 
@@ -130,6 +142,8 @@ public class Users implements Serializable {
 		builder.append(attachment);
 		builder.append(", boardList=");
 		builder.append(boardList);
+		builder.append(", authorities=");
+		builder.append(authorities);
 		builder.append("]");
 		return builder.toString();
 	}
