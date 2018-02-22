@@ -24,8 +24,7 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public Users detail(Integer no) throws UsersException {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.select(no);
 	}
 
 	@Override
@@ -43,6 +42,11 @@ public class UsersServiceImpl implements UsersService {
 	public String modify(Users users) throws UsersException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Users detailByEmail(String email) throws UsersException {
+		return dao.selectByEmail(email);
 	}
 
 }

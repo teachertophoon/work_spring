@@ -17,4 +17,7 @@ public interface UsersService {
 	
 	public String modify(Users users) throws UsersException;
 	
+	// 이메일로 사용자의 모든 정보 가져오기
+	public Users detailByEmail(String email) throws UsersException;
+	
 }
