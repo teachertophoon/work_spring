@@ -38,7 +38,7 @@ public class UsersDaoImpl implements UsersDao {
 		Users users = null;
 		
 		try {
-			users = session.selectOne(MAPPER_NS + ".select-users");
+			users = session.selectOne(MAPPER_NS + ".select-users", no);
 			
 		} catch (Exception e) {
 			throw new UsersException(e.getMessage());
@@ -80,7 +80,7 @@ public class UsersDaoImpl implements UsersDao {
 		Users users = null;
 		
 		try {
-			users = session.selectOne(MAPPER_NS + ".select-users-by-email");
+			users = session.selectOne(MAPPER_NS + ".select-users-by-email", email);
 			
 		} catch (Exception e) {
 			throw new UsersException(e.getMessage());
