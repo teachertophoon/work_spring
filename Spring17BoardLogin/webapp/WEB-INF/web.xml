@@ -25,10 +25,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
-	
 	<!--
 		스프링은 기본으로 servlet-name 앨리먼트의 이름을 가진
 		*-servlet.xml 파일을 WEB-INF 폴더에서 찾는다.
@@ -46,7 +42,7 @@
 	 -->
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
 	<filter>
