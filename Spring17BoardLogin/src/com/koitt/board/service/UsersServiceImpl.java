@@ -20,6 +20,7 @@ import com.koitt.board.dao.AuthorityDao;
 import com.koitt.board.dao.UsersDao;
 import com.koitt.board.model.Authority;
 import com.koitt.board.model.AuthorityId;
+import com.koitt.board.model.Board;
 import com.koitt.board.model.Users;
 import com.koitt.board.model.UsersException;
 
@@ -81,8 +82,18 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public String modify(Users users) throws UsersException {
-		// TODO Auto-generated method stub
-		return null;
+		// 수정하기 전에 기존에 저장되어 있던 첨부파일 이름을 가져온다.
+		Users item = usersDao.select(users.getNo());
+		String filename = item.getAttachment();
+		
+		// 입력받은 비밀번호를 암호화
+		users.setPassword(passwordEncoder.encode(users.getPassword()));
+		
+		// 암호화까지 마친 users 객체를 데이터베이스로 전달
+		usersDao.update(users);
+
+		// 기존에 저장되어 있던 첨부파일명을 컨트롤러로 전달
+		return filename;
 	}
 
 	@Override
@@ -117,6 +128,16 @@ public class UsersServiceImpl implements UsersService {
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(req, resp, auth);
 		}
+	}
+
+	@Override
+	public boolean isPasswordMatched(String oldPassword) throws UsersException {
+		// 현재 로그인한 사용자의 암호화된 비밀번호를 가져온다.
+		String email = this.getPrincipal().getUsername();
+		Users users = usersDao.selectByEmail(email);
+		
+		// 입력한 비밀번호와 기존 비밀번호를 비교하여 일치하면 true, 아니면 false 리턴
+		return passwordEncoder.matches(oldPassword, users.getPassword());
 	}
 
 }

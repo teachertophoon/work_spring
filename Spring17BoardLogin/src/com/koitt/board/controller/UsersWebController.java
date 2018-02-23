@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -126,6 +125,84 @@ public class UsersWebController {
 		
 		// 로그아웃 한 뒤 로그인 페이지로 이동 후 로그아웃 메시지 출력을 위해 쿼리문자열 사용
 		return "redirect:/login.do?logout=true";
+	}
+	
+	// 회원정보변경 페이지
+	@RequestMapping(value="/users-modify.do", method=RequestMethod.GET)
+	public String modify(HttpServletRequest request) {
+		Users users = null;
+		String uploadPath = null;
+		
+		try {
+			/*
+			 * 수정하고자 하는 사용자의 정보를 가져와서
+			 * 회원정보변경 화면에 출력하기 위해 아래와 같이 호출
+			 */
+			String email = usersService.getPrincipal().getUsername();
+			users = usersService.detailByEmail(email);
+			uploadPath = fileService.getUploadPath(request);
+			
+		} catch (UsersException e) {
+			request.setAttribute("error", "server");
+		}
+		
+		request.setAttribute("users", users);
+		request.setAttribute("uploadPath", uploadPath);
+		
+		return "users-modify";
+	}
+	
+	@RequestMapping(value="/users-modify.do", method=RequestMethod.POST)
+	public String modify(HttpServletRequest request,
+			String oldPassword,
+			String newPassword,
+			String name,
+			@RequestParam("attachment") MultipartFile attachment) {
+		
+		try {
+			// 기존 비밀번호가 일치하는지 확인하기
+			boolean isMatched = usersService.isPasswordMatched(oldPassword);
+			
+			// 비밀번호가 일치하면 사용자 정보를 변경한다.
+			if (isMatched) {
+				// 현재 로그인한 사용자의 email 값을 가져오기
+				String email = usersService.getPrincipal().getUsername();
+
+				// 현재 로그인한 사용자 정보를 email 값을 이용하여 가져오기
+				Users oldUsers = usersService.detailByEmail(email);
+
+				// 새로 변경할 프로필 사진을 서버에 저장한다.
+				String filename = fileService.add(request, attachment);
+
+				// 데이터베이스에 저장할 users 객체 생성
+				Users users = new Users(oldUsers.getNo(), email, newPassword, name, filename);
+				
+				// 수정할 정보를 데이터베이스에 전달
+				String toDeleteFile = usersService.modify(users);
+				
+				// 기존 프로필 사진 삭제
+				fileService.remove(request, toDeleteFile);
+			}
+			// 기존 비밀번호가 일치하지 않은 경우에는 오류메시지를 수정페이지에 출력한다.
+			else {
+				return "redirect:users-modify.do?error=password";
+			}
+			
+		} catch (UsersException e) {
+			System.out.println(e.getMessage());
+			request.setAttribute("error", "server");
+			
+		} catch (FileException e) {
+			System.out.println(e.getMessage());
+			request.setAttribute("error", "file");
+		}
+		
+		return "redirect:users-modify-confirm.do";
+	}
+	
+	@RequestMapping(value="users-modify-confirm.do", method=RequestMethod.GET)
+	public String modifyConfirm() {
+		return "users-modify-confirm";
 	}
 }
 

@@ -12,6 +12,7 @@
 		<a href="<c:url value='/login.do'/>">로그인하기</a>
 	</c:if>
 	<c:if test="${ isLogin == 'true' }">
+		<a href="<c:url value='/users-modify.do'/>">회원정보변경</a>
 		<a href="<c:url value='/logout.do'/>">로그아웃</a>
 	</c:if>
 </body>

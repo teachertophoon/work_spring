@@ -70,9 +70,13 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public void update(Users users) {
-		// TODO Auto-generated method stub
-		
+	public void update(Users users) throws UsersException {
+		try {
+			session.update(MAPPER_NS + ".update-users", users);
+			
+		} catch (Exception e) {
+			throw new UsersException(e.getMessage());
+		}
 	}
 
 	@Override
