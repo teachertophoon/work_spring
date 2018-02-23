@@ -15,5 +15,8 @@
 	<c:if test="${ param.error == 'login' }">
 		<p style="color:#FF0000">이메일 혹은 비밀번호를 잘못 입력하셨습니다.</p>
 	</c:if>
+	<c:if test="${ param.logout == 'true' }">
+		<p style="color:#FF0000">로그아웃 하였습니다.</p>
+	</c:if>
 </body>
 </html>

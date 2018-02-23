@@ -22,6 +22,7 @@ import com.koitt.board.service.BoardService;
 import com.koitt.board.service.FileService;
 
 @Controller
+@RequestMapping("/board")	// 하위의 RequestMapping의 value 앞에 공통으로 /board 추가됨
 public class BoardWebController {
 	
 	@Autowired

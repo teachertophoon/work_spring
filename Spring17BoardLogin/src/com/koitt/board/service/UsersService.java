@@ -2,6 +2,9 @@ package com.koitt.board.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.koitt.board.model.Authority;
@@ -31,4 +34,14 @@ public interface UsersService {
 	 *  Principal: 시스템을 사용하려고 하는 사용자 (로그인한 사용자)
 	 */
 	public UserDetails getPrincipal();
+	
+	// 로그아웃
+	public void logout(HttpServletRequest req, HttpServletResponse resp);
 }
+
+
+
+
+
+
+
