@@ -103,7 +103,16 @@ FROM users u,
 	WHERE users_authority.authority_id = authority.id) ua
 WHERE u.no = ua.users_no AND u.no = 3;
 
+# 4. board 테이블과 users 테이블 EQUI JOIN
+SELECT b.no, b.title, b.content, b.user_no, b.regdate, b.attachment, 
+	u.email, u.name, u.attachment as "uattachment"
+FROM board b, users u
+WHERE b.user_no = u.no ORDER BY b.no DESC;
 
 
-
+# 5. 4번 SQL문에서 하나의 게시물을 선택하기 위한 SQL문
+SELECT b.no, b.title, b.content, b.user_no, b.regdate, b.attachment, 
+  	u.email, u.name, u.attachment as "uattachment"
+FROM board b, users u
+WHERE b.user_no = u.no AND b.no = 10 ORDER BY b.no DESC;
 
