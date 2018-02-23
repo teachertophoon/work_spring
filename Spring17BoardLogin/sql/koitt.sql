@@ -130,18 +130,3 @@ INSERT INTO users_authority(users_no, authority_id) VALUES
 (8, 20);
 
 
-
-
-
-
-INSERT INTO users (email, password, name, attachment)
-	VALUES ('user8@gmail.com',
-	'$2a$10$AF6PNoVqwj56NmOCuWz.1u8YO/km7XCA77ztKxbqIF3FVyQI1iYny', '테스트', NULL);
-
-SELECT LAST_INSERT_ID();
-
-INSERT INTO users_authority(users_no, authority_id) VALUES
-(8, 10),
-(8, 20);
-
-

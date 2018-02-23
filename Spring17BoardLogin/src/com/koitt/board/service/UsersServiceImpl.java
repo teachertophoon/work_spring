@@ -65,7 +65,6 @@ public class UsersServiceImpl implements UsersService {
 		
 		// 방금 등록한 users의 사용자 번호를 가져온다.
 		Integer no = usersDao.selectLastInsertId();
-		System.out.println("aaaaa: " + no);
 		
 		// 가져온 사용자 번호를 users 객체에 담는다.
 		users.setNo(no);
