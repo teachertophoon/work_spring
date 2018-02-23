@@ -14,6 +14,7 @@
 	<form action="<c:url value='/board/board-remove.do'/>" method="post">
 		<input type="hidden" name="no" value="${ no }">
 		<input type="submit" value="삭제하기">
+		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">
 	</form>
 	<a href="<c:url value='/board/board-list.do'/>">글 목록으로 이동</a>
 </body>

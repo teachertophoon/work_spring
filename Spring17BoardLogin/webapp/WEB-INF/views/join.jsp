@@ -11,6 +11,7 @@
 		<label>이름 <input type="text" name="name"></label>
 		<label>첨부 파일 <input type="file" name="attachment"></label>
 		<input type="submit" value="회원가입">
+		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">
 	</form>
 </body>
 </html>
