@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,8 +92,8 @@ public class UsersWebController {
 			req.setAttribute("error", "encoding");
 		}
 		
-		// 가입 시 문제가 발생하면 index.html로 이동
-		return "redirect:index.html";
+		// 가입 시 문제가 발생하면 index.do로 이동
+		return "redirect:index.do";
 	}
 	
 	// 가입 확인 페이지

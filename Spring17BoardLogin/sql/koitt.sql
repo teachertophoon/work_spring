@@ -116,3 +116,32 @@ SELECT b.no, b.title, b.content, b.user_no, b.regdate, b.attachment,
 FROM board b, users u
 WHERE b.user_no = u.no AND b.no = 10 ORDER BY b.no DESC;
 
+# 6. 사용자 번호 3번 유저와 같이 관리자 권한과 일반사용자 권한을 함께 입력할 경우 (Oracle)
+INSERT ALL
+	INTO users_authority(users_no, authority_id)
+  	VALUES (3, 10)
+  	INTO users_authority(users_no, authority_id)
+  	VALUES (3, 20)
+SELECT * FROM DUAL;
+
+# 6-1. 6번을 MySQL 버전으로 변경
+INSERT INTO users_authority(users_no, authority_id) VALUES
+(8, 10),
+(8, 20);
+
+
+
+
+
+
+INSERT INTO users (email, password, name, attachment)
+	VALUES ('user8@gmail.com',
+	'$2a$10$AF6PNoVqwj56NmOCuWz.1u8YO/km7XCA77ztKxbqIF3FVyQI1iYny', '테스트', NULL);
+
+SELECT LAST_INSERT_ID();
+
+INSERT INTO users_authority(users_no, authority_id) VALUES
+(8, 10),
+(8, 20);
+
+

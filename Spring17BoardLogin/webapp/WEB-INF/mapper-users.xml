@@ -38,9 +38,20 @@
 		WHERE u.no = ua.users_no AND u.email = #{email}
   	</select>
   	
+  	<select id="select-last-insert-id" resultType="int">
+  		SELECT LAST_INSERT_ID()
+  	</select>
+  	
   	<insert id="insert-users" parameterType="Users">
   		INSERT INTO users (email, password, name, attachment)
   		VALUES (#{email}, #{password}, #{name}, #{attachment})
+  	</insert>
+  	
+  	<insert id="insert-authority" parameterType="Users">
+  		INSERT INTO users_authority(users_no, authority_id) VALUES
+  		<foreach collection="authorities" item="item" separator=", ">
+  			(#{no}, #{item.id})
+  		</foreach>
   	</insert>
   	
   </mapper>

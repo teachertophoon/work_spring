@@ -89,6 +89,28 @@ public class UsersDaoImpl implements UsersDao {
 		return users;
 	}
 
+	@Override
+	public void insertAuthority(Users users) throws UsersException {
+		try {
+			session.insert(MAPPER_NS + ".insert-authority", users);
+			
+		} catch (Exception e) {
+			throw new UsersException(e.getMessage());
+		}
+	}
+
+	@Override
+	public Integer selectLastInsertId() throws UsersException {
+		Integer lastInsertId = null;
+		try {
+			lastInsertId = session.selectOne(MAPPER_NS + ".select-last-insert-id");
+			
+		} catch (Exception e) {
+			throw new UsersException(e.getMessage());
+		}
+		
+		return lastInsertId;
+	}
 }
 
 
