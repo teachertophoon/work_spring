@@ -12,11 +12,8 @@ import com.koitt.board.service.UsersService;
 @Controller
 public class IndexWebController {
 	
-	@Autowired
-	private UsersService service;
-	
 	@RequestMapping(value= {"/", "/index.do"}, method=RequestMethod.GET)
-	public String index(Model model) {		
+	public String index() {		
 		return "index";
 	}
 }
