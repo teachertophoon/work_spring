@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.sql.SQLException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -14,20 +15,36 @@ import com.koitt.vo.User;
 
 public class UserDaoTest {
 	
-	@Test	// JUnit에게 테스트용 메소드임을 알려준다.
-	public void addAndGet() throws SQLException { // JUnit 테스트 메소드는 반드시 public으로 선언
+	// 픽스처(fixture): 테스트를 수행하는데 필요한 정보나 객체
+	// setUp() 메소드에서 만드는 객체를 테스트 메소드에서 사용할 수 있도록 필드로 선언
+	private UserDao dao;
+	private User user1;
+	private User user2;
+	private User user3;
+	
+	/*
+	 * Before 애노테이션: JUnit이 제공하는 애노테이션.
+	 * @Test 메소드가 실행되기 전에 먼저 실행되어야 하는 메소드를 정의한다.
+	 */
+	@Before
+	public void setUp() {
 		ApplicationContext context = 
 				new GenericXmlApplicationContext("/com/koitt/config/applicationContext.xml");
 		
-		UserDao dao = context.getBean("userDao", UserDao.class);
+		this.dao = context.getBean("userDao", UserDao.class);
+		
+		this.user1 = new User("curling", "김영미", "1234");
+		this.user2 = new User("speed", "이승훈", "5678");
+		this.user3 = new User("skeleton", "윤성빈", "3344");
+	}
+	
+	@Test	// JUnit에게 테스트용 메소드임을 알려준다.
+	public void addAndGet() throws SQLException { // JUnit 테스트 메소드는 반드시 public으로 선언
 		
 		// 전체 삭제
 		dao.deleteAll();
 		// 정말 전체 삭제가 됐는지 확인하기 위해 getCount로 확인
 		assertThat(dao.getCount(), is(0));
-		
-		User user1 = new User("curling", "김영미", "1234");
-		User user2 = new User("speed", "이승훈", "5678");
 		
 		// 생성한 사용자를 데이터베이스에 저장
 		dao.add(user1);
@@ -63,20 +80,11 @@ public class UserDaoTest {
 	// UserDao의 getCount 메소드에 대한 검증
 	@Test
 	public void count() throws SQLException {
-		ApplicationContext context =
-				new GenericXmlApplicationContext("/com/koitt/config/applicationContext.xml");
-		
-		UserDao dao = context.getBean("userDao", UserDao.class);
 		
 		// 동일한 테스트 결과를 얻기 위해 테이블 내용을 비워준다.
 		dao.deleteAll();
 		// 실제 비워졌는지 getCount 메소드를 이용하여 확인
-		assertThat(dao.getCount(), is(0));
-		
-		// User 객체 하나씩 데이터베이스에 입력하면서 getCount 메소드가 제대로 동작하는지 검증
-		User user1 = new User("curling", "김영미", "1234");
-		User user2 = new User("speed", "이승훈", "5678");
-		User user3 = new User("skeleton", "윤성빈", "3344");
+		assertThat(dao.getCount(), is(0));		
 		
 		dao.add(user1);
 		assertThat(dao.getCount(), is(1));
@@ -97,11 +105,6 @@ public class UserDaoTest {
 	// 테스트 중에 발생할 것으로 기대하는 예외 클래스를 지정해준다.
 	@Test(expected=EmptyResultDataAccessException.class)
 	public void getUserFailure() throws SQLException {
-		ApplicationContext context = 
-				new GenericXmlApplicationContext("/com/koitt/config/applicationContext.xml");
-		
-		UserDao dao = context.getBean("userDao", UserDao.class);
-		
 		dao.deleteAll();
 		assertThat(dao.getCount(), is(0));
 		
