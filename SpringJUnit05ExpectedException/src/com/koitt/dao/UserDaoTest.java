@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.koitt.vo.User;
 
@@ -92,6 +93,24 @@ public class UserDaoTest {
 	 * 모든 테스트는 실행 순서에 상관없이 독립적으로 항상 동일한 결과를
 	 * 낼 수 있도록 한다.
 	 */
+	
+	// 테스트 중에 발생할 것으로 기대하는 예외 클래스를 지정해준다.
+	@Test(expected=EmptyResultDataAccessException.class)
+	public void getUserFailure() throws SQLException {
+		ApplicationContext context = 
+				new GenericXmlApplicationContext("/com/koitt/config/applicationContext.xml");
+		
+		UserDao dao = context.getBean("userDao", UserDao.class);
+		
+		dao.deleteAll();
+		assertThat(dao.getCount(), is(0));
+		
+		/*
+		 * 이 테스트 메소드 실행 중에 예외가 발생해야 한다.
+		 * 예외가 발생하지 않는다면 테스트는 실패한 것이다.
+		 */
+		dao.get("unknown_id");
+	}
 }
 
 
