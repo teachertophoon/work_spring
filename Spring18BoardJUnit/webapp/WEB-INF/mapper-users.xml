@@ -42,7 +42,8 @@
   		SELECT LAST_INSERT_ID()
   	</select>
   	
-  	<insert id="insert-users" parameterType="Users">
+  	<insert id="insert-users" parameterType="Users" 
+  		useGeneratedKeys="true" keyProperty="no">
   		INSERT INTO users (email, password, name, attachment)
   		VALUES (#{email}, #{password}, #{name}, #{attachment})
   	</insert>
@@ -65,6 +66,14 @@
   	
   	<select id="count-users" resultType="int">
   		SELECT COUNT(*) FROM users
+  	</select>
+  	
+  	<delete id="delete-all-users-authority">
+  		DELETE FROM users_authority
+  	</delete>
+  	
+  	<select id="count-users-authority" resultType="int">
+  		SELECT COUNT(*) FROM users_authority
   	</select>
   	
   </mapper>
