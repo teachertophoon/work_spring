@@ -51,7 +51,6 @@ public class JUnitTest {
 	private Set<Authority> userSet = new HashSet<>();
 	private Set<Authority> bothSet = new HashSet<>();
 	
-	
 	@Before
 	public void setUp() {
 		String password = passwordEncoder.encode("1234");
@@ -86,6 +85,7 @@ public class JUnitTest {
 	// 사용자 추가, 가져오기 테스트
 	@Test
 	public void addAndGetUsers() throws UsersException, BoardException {
+		// 1. 독립적인 테스트를 위해 테이블 초기화
 		/*
 		 *  글 작성한 사용자가 존재할 경우 users 테이블을 먼저 삭제 할 수 없기 때문에
 		 *  board 테이블을 먼저 삭제 후 사용자를 추가해야 한다.
@@ -103,6 +103,7 @@ public class JUnitTest {
 		usersDao.deleteAll();
 		assertThat(usersDao.getCount(), is(0));
 		
+		// 2. 사용자 추가
 		// 사용자 3명 입력이 정상적으로 완료됐는지 확인 테스트
 		usersDao.insert(users1);
 		users1.setNo(usersDao.selectLastInsertId());
@@ -118,6 +119,8 @@ public class JUnitTest {
 		usersDao.insertAuthority(users3);
 		assertThat(usersDao.getCountUsersAuthority(), is(4)); // users3 권한이 2개라서
 		
+		
+		// 3. 테이블에 저장된 사용자 가져오기
 		/*
 		 *  테이블에 저장된 각 사용자의 정보를 제대로 가져왔는지 테스트
 		 *  passwordEncoder의 matches 메소드는 결과가 boolean 타입이므로
