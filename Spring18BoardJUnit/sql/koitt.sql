@@ -128,5 +128,3 @@ SELECT * FROM DUAL;
 INSERT INTO users_authority(users_no, authority_id) VALUES
 (8, 10),
 (8, 20);
-
-

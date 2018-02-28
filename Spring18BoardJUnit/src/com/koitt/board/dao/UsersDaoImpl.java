@@ -139,6 +139,30 @@ public class UsersDaoImpl implements UsersDao {
 		
 		return count;
 	}
+
+	@Override
+	public void deleteAllUsersAuthority() throws UsersException {
+		try {
+			session.delete(MAPPER_NS + ".delete-all-users-authority");
+			
+		} catch (Exception e) {
+			throw new UsersException(e.getMessage());
+		}
+	}
+
+	@Override
+	public Integer getCountUsersAuthority() throws UsersException {
+		Integer count = null;
+		
+		try {
+			count = session.selectOne(MAPPER_NS + ".count-users-authority");
+			
+		} catch (Exception e) {
+			throw new UsersException(e.getMessage());
+		}
+		
+		return count;
+	}
 }
 
 

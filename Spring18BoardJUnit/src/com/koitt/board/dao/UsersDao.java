@@ -33,6 +33,12 @@ public interface UsersDao {
 	
 	// 사용자 수 가져오기
 	public Integer getCount() throws UsersException;
+	
+	// users_authority 테이블 전체 삭제
+	public void deleteAllUsersAuthority() throws UsersException;
+	
+	// users_authority 테이블 행의 수 가져오기
+	public Integer getCountUsersAuthority() throws UsersException;
 }
 
 

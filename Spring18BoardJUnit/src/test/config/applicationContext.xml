@@ -54,4 +54,8 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
+	
+	<!-- 비밀번호 암호화하기 위해 빈 객체 선언 -->
+	<bean id="bcryptEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 </beans>
