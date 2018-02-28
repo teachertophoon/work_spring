@@ -20,6 +20,7 @@ import com.koitt.board.dao.BoardDao;
 import com.koitt.board.dao.UsersDao;
 import com.koitt.board.model.Authority;
 import com.koitt.board.model.AuthorityId;
+import com.koitt.board.model.Board;
 import com.koitt.board.model.BoardException;
 import com.koitt.board.model.Users;
 import com.koitt.board.model.UsersException;
@@ -51,6 +52,8 @@ public class JUnitTest {
 	private Set<Authority> userSet = new HashSet<>();
 	private Set<Authority> bothSet = new HashSet<>();
 	
+	private Board board1;
+	
 	@Before
 	public void setUp() {
 		String password = passwordEncoder.encode("1234");
@@ -80,6 +83,9 @@ public class JUnitTest {
 		this.users1.setAuthorities(adminSet);
 		this.users2.setAuthorities(userSet);
 		this.users3.setAuthorities(bothSet);
+		
+		// 게시글
+		this.board1 = new Board(null, "제목-1", "내용-1", null, null, null);
 	}
 	
 	// 사용자 추가, 가져오기 테스트
@@ -139,6 +145,35 @@ public class JUnitTest {
 		assertTrue(passwordEncoder.matches("1234", users3.getPassword()));
 	}
 	
+	// 게시글 추가, 가져오기 테스트
+	@Test
+	public void addAndGetBoard() throws BoardException, UsersException {
+		// 1. 독립적인 단위 테스트를 위해 테이블 삭제 -> board, user_authority, users 순으로 삭제
+		boardDao.deleteAll();
+		assertThat(boardDao.getCount(), is(0));
+		
+		usersDao.deleteAllUsersAuthority();
+		assertThat(usersDao.getCountUsersAuthority(), is(0));
+		
+		usersDao.deleteAll();
+		assertThat(usersDao.getCount(), is(0));
+		
+		// 2. 글 작성할 사용자 1명 추가하기
+		usersDao.insert(users1);	// 사용자 추가
+		Integer userNo = usersDao.selectLastInsertId();	// 추가한 사용자의 번호 가져오기
+		assertThat(usersDao.getCount(), is(1));
+		
+		// 3. 글 작성
+		board1.setUserNo(userNo);
+		boardDao.insert(board1);
+		Integer boardNo = boardDao.selectLastInsertId();
+		assertThat(boardDao.getCount(), is(1));
+		
+		// 4. 글 내용 비교 테스트
+		Board boardget1 = boardDao.select(boardNo.toString());
+		assertThat(boardget1.getTitle(), is(board1.getTitle()));
+		assertThat(boardget1.getContent(), is(board1.getContent()));
+	}
 }
 
 

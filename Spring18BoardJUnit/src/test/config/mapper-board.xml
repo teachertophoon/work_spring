@@ -53,6 +53,10 @@
   		SELECT COUNT(*) FROM board
   	</select>
   	
+  	<select id="select-last-insert-id" resultType="int">
+  		SELECT LAST_INSERT_ID()
+  	</select>
+  	
   </mapper>
   
   

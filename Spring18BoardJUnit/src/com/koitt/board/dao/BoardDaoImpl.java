@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.koitt.board.model.Board;
 import com.koitt.board.model.BoardException;
+import com.koitt.board.model.UsersException;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -104,6 +105,20 @@ public class BoardDaoImpl implements BoardDao {
 		}
 		
 		return count;
+	}
+
+	@Override
+	public Integer selectLastInsertId() throws BoardException {
+		Integer lastInsertId = null;
+		
+		try {
+			lastInsertId = session.selectOne(MAPPER_NS + ".select-last-insert-id");
+			
+		} catch (Exception e) {
+			throw new BoardException(e.getMessage());
+		}
+		
+		return lastInsertId;
 	}
 
 }
