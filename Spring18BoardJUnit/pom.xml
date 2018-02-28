@@ -130,5 +130,21 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>4.2.4.RELEASE</version>
 		</dependency>
+		
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- Spring Test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.3.14.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>
