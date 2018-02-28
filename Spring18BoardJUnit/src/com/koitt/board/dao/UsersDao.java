@@ -27,4 +27,23 @@ public interface UsersDao {
 	
 	// 최근 등록한 사용자의 번호를 가져오기
 	public Integer selectLastInsertId() throws UsersException;
+	
+	// 사용자 전체 삭제
+	public void deleteAll() throws UsersException;
+	
+	// 사용자 수 가져오기
+	public Integer getCount() throws UsersException;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

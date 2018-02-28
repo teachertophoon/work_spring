@@ -61,21 +61,6 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int boardCount() throws BoardException {
-		Integer result = null;
-		
-		try {
-			result = session.selectOne(MAPPER_NS + ".select-count-board");
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			throw new BoardException(e.getMessage());
-		}
-		
-		return result;
-	}
-
-	@Override
 	public void update(Board board) throws BoardException {
 		try {
 			session.update(MAPPER_NS + ".update-board", board);
@@ -95,6 +80,30 @@ public class BoardDaoImpl implements BoardDao {
 			System.out.println(e.getMessage());
 			throw new BoardException(e.getMessage());
 		}
+	}
+
+	@Override
+	public void deleteAll() throws BoardException {
+		try {
+			session.delete(MAPPER_NS + ".delete-all-board");
+			
+		} catch (Exception e) {
+			throw new BoardException(e.getMessage());
+		}
+	}
+
+	@Override
+	public Integer getCount() throws BoardException {
+		Integer count = null;
+		
+		try {
+			count = session.selectOne(MAPPER_NS + ".count-board");
+			
+		} catch (Exception e) {
+			throw new BoardException(e.getMessage());
+		}
+		
+		return count;
 	}
 
 }

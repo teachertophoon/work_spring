@@ -16,12 +16,15 @@ public interface BoardDao {
 	// 전체 글 불러오기
 	public List<Board> selectAll() throws BoardException;
 	
-	// 게시글 개수 가져오기
-	public int boardCount() throws BoardException;
-	
 	// 글 수정하기
 	public void update(Board board) throws BoardException;
 	
 	// 글 삭제하기
 	public void delete(String no) throws BoardException;
+	
+	// 글 전체 삭제하기
+	public void deleteAll() throws BoardException;
+	
+	// 게시글 개수 가져오기
+	public Integer getCount() throws BoardException;
 }

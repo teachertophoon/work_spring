@@ -35,11 +35,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int count() throws BoardException {
-		return dao.boardCount();
-	}
-
-	@Override
 	public String modify(Board board) throws BoardException {
 		// 수정하기 전에 기존에 저장되어 있던 첨부파일 이름을 가져온다.
 		Board item = dao.select(board.getNo().toString());
