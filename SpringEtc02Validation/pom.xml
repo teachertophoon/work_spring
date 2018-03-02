@@ -32,14 +32,14 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.3.14.RELEASE</version>
 		</dependency>
-		
+
 		<!-- Hibernate Validator -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>4.2.0.Final</version>
+			<version>6.0.7.Final</version>
 		</dependency>
-		
+
 		<!-- JSTL -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
