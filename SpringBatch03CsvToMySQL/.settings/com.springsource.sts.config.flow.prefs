@@ -1,0 +1,2 @@
+//com.springsource.sts.config.flow.coordinates\:http\://www.springframework.org/schema/batch\:/SpringBatch03CsvToMySQL/src/com/koitt/jobs/job-csv-to-mysql.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<graph>\r\n<element clazz\="JobModelElement" type\="job">\r\n<structure end\="2404" endstart\="2392" start\="2174" startend\="2204"/>\r\n<bounds height\="118" width\="143" x\="15" y\="17"/>\r\n</element>\r\n</graph>
+eclipse.preferences.version=1
