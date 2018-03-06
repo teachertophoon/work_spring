@@ -32,13 +32,13 @@
 	<!-- File을 여러개 읽기 위해서 MultiResourceItemReader 빈 생성 -->
 	<bean id="multiResourceReader" 
 		class="org.springframework.batch.item.file.MultiResourceItemReader">
-		<property name="resources" value="file:csv/input/domain-*.csv" />
+		<property name="resources" value="file:c:/sample/ex02/input/domain-*.csv" />
 		<property name="delegate" ref="csvFileItemReader" />
 	</bean>
 	
 	<!-- ItemWriter 빈 생성 -->
 	<bean id="csvFileItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
-		<property name="resource" value="file:csv/output/domain-all.csv" />
+		<property name="resource" value="file:c:/sample/ex02/output/domain-all.csv" />
 		<property name="appendAllowed" value="false" />
 		<property name="lineAggregator">
 			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
@@ -55,7 +55,7 @@
 	
 	<!-- Tasklet 빈 생성: input 폴더 내의 파일을 삭제하는 빈 -->
 	<bean id="fileDeletingTasklet" class="com.koitt.model.FileDeletingTasklet">
-		<property name="directory" value="file:csv/input/" />
+		<property name="directory" value="file:c:/sample/ex02/input/" />
 	</bean>
 	
 	<!-- Batch Job 생성 -->
