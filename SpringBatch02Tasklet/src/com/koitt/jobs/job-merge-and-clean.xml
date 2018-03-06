@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+		
+	<!-- VO 클래스에 해당하는 빈 생성 -->
+	<bean id="domain" class="com.koitt.model.Domain" scope="prototype" />
+	
+	<!-- ItemReader 빈 생성 -->
+	<bean id="csvFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean
+					class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="id, domain" />
+						<property name="delimiter" value="," />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean 
+					class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="domain" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- File을 여러개 읽기 위해서 MultiResourceItemReader 빈 생성 -->
+	<bean id="multiResourceReader" 
+		class="org.springframework.batch.item.file.MultiResourceItemReader">
+		<property name="resources" value="file:csv/input/domain-*.csv" />
+		<property name="delegate" ref="csvFileItemReader" />
+	</bean>
+	
+	<!-- ItemWriter 빈 생성 -->
+	<bean id="csvFileItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
+		<property name="resource" value="file:csv/output/domain-all.csv" />
+		<property name="appendAllowed" value="false" />
+		<property name="lineAggregator">
+			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+				<property name="delimiter" value="|" />
+				<property name="fieldExtractor">
+					<bean 
+					class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+						<property name="names" value="id, domain" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- Tasklet 빈 생성: input 폴더 내의 파일을 삭제하는 빈 -->
+	<bean id="fileDeletingTasklet" class="com.koitt.model.FileDeletingTasklet">
+		<property name="directory" value="file:csv/input/" />
+	</bean>
+	
+	<!-- Batch Job 생성 -->
+	<batch:job id="mergeAndCleanJob">
+		<batch:step id="step1" next="step2">
+			<batch:tasklet>
+				<batch:chunk reader="multiResourceReader" writer="csvFileItemWriter"
+					commit-interval="1" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="step2">
+			<batch:tasklet ref="fileDeletingTasklet" />
+		</batch:step>
+	</batch:job>
+</beans>
+
+
+
+
