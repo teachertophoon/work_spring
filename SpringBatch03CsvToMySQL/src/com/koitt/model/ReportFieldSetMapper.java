@@ -11,7 +11,7 @@ public class ReportFieldSetMapper implements FieldSetMapper<Report> {
 	private SimpleDateFormat dateFormat;
 	
 	public ReportFieldSetMapper() {
-		dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		dateFormat = new SimpleDateFormat("MM/dd/y");
 	}
 
 	@Override
