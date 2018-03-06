@@ -1,41 +1,43 @@
 package com.koitt.model;
 
+import java.util.Date;
+
 public class Report {
 	
-	private String date;
-	private String impressions;
-	private String clicks;
-	private String earning;
+	private Date date;
+	private Integer impressions;
+	private Integer clicks;
+	private Double earning;
 	
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 	
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	
-	public String getImpressions() {
+	public Integer getImpressions() {
 		return impressions;
 	}
 	
-	public void setImpressions(String impressions) {
+	public void setImpressions(Integer impressions) {
 		this.impressions = impressions;
 	}
 	
-	public String getClicks() {
+	public Integer getClicks() {
 		return clicks;
 	}
 	
-	public void setClicks(String clicks) {
+	public void setClicks(Integer clicks) {
 		this.clicks = clicks;
 	}
 	
-	public String getEarning() {
+	public Double getEarning() {
 		return earning;
 	}
 	
-	public void setEarning(String earning) {
+	public void setEarning(Double earning) {
 		this.earning = earning;
 	}
 }

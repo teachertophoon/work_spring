@@ -21,13 +21,15 @@
 					</bean>
 				</property>
 				<property name="fieldSetMapper">
-					<bean
+					<bean class="com.koitt.model.ReportFieldSetMapper" />
+					<!-- <bean
 					class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
 						<property name="prototypeBeanName" value="report" />
-					</bean>
+					</bean> -->
 				</property>
 			</bean>
 		</property>
+		<property name="linesToSkip" value="1" />
 	</bean>
 	
 	<!--
@@ -40,7 +42,7 @@
 		<property name="sql">
 			<value>
 			<![CDATA[
-				INSERT INTO raw_report(date, impressions, clicks, earning)
+				INSERT INTO report(date, impressions, clicks, earning)
 				VALUES (:date, :impressions, :clicks, :earning)
 			]]>
 			</value>
