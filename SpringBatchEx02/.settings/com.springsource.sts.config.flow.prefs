@@ -1,0 +1,3 @@
+//com.springsource.sts.config.flow.coordinates\:http\://www.springframework.org/schema/batch\:/SpringBatchEx02/src/com/koitt/config/applicationContext.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<graph/>
+//com.springsource.sts.config.flow.coordinates\:http\://www.springframework.org/schema/batch\:/SpringBatchEx02/src/com/koitt/jobs/job-xml-to-mysql.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<graph>\r\n<element clazz\="JobModelElement" type\="job">\r\n<structure end\="2015" endstart\="2003" start\="1791" startend\="1821"/>\r\n<bounds height\="118" width\="146" x\="15" y\="17"/>\r\n</element>\r\n</graph>
+eclipse.preferences.version=1
