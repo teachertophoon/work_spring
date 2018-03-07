@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/com/koitt/config/applicationContext.xml</config>
 		<config>src/com/koitt/config/spring-task-scheduler.xml</config>
+		<config>src/com/koitt/jobs/job-report.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

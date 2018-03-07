@@ -22,6 +22,6 @@
 	</bean>
 	
 	<import resource="./spring-task-scheduler.xml" />
-	<!-- <import resource="../jobs/job-report.xml" /> -->
+	<import resource="../jobs/job-report.xml" />
 
 </beans>

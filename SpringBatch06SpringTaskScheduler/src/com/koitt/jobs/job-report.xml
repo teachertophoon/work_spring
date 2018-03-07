@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- ItemReader 빈 생성 -->
+	<bean id="csvFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="resource" value="file:c:/sample/ex01/report.csv" />
+		<property name="encoding" value="utf-8" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean
+						class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="id, sales, qty, staffName, date" />
+						<property name="delimiter" value="," />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="com.koitt.model.ReportFieldSetMapper" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- ItemWriter 빈 생성 -->
+	<bean id="customItemWriter" class="com.koitt.model.CustomItemWriter" />
+	
+	<!-- Batch Job 생성 -->
+	<batch:job id="reportJob">
+		<batch:step id="step1">
+			<batch:tasklet>
+				<batch:chunk reader="csvFileItemReader" writer="customItemWriter" 
+					commit-interval="2" />
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+</beans>
+
+
+
+
+
+
+
+
+
