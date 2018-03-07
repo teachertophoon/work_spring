@@ -1,10 +1,15 @@
 package com.koitt.model;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 public class User {
 	private Integer id;
 	private String username;
 	private String password;
 	private Integer age;
+	private Date regdate;
+	private BigDecimal income;
 	
 	public Integer getId() {
 		return id;
@@ -36,5 +41,21 @@ public class User {
 	
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public Date getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
+	public BigDecimal getIncome() {
+		return income;
+	}
+
+	public void setIncome(BigDecimal income) {
+		this.income = income;
 	}
 }
