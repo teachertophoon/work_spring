@@ -29,6 +29,7 @@
 	</bean>
 	
 	<!-- Job 생성하는 스프링 xml 파일 import -->
+	<import resource="./spring-task-scheduler.xml" />
 	<import resource="./spring-email.xml" />
 	<import resource="../jobs/job-mysql-to-mail.xml" />
 	<import resource="../steps/step-mysql-to-csv.xml" />
