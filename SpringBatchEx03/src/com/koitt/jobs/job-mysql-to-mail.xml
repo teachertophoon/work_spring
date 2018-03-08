@@ -13,8 +13,11 @@
 					writer="csvFileItemWriter" commit-interval="2" />
 			</batch:tasklet>
 		</batch:step>
-		<batch:step id="step2">
+		<batch:step id="step2" next="step3">
 			<batch:tasklet ref="sendEmailTasklet" />
+		</batch:step>
+		<batch:step id="step3">
+			<batch:tasklet ref="fileDeletingTasklet" />
 		</batch:step>
 	</batch:job>
 </beans>

@@ -11,6 +11,7 @@
 		<config>src/com/koitt/jobs/job-mysql-to-mail.xml</config>
 		<config>src/com/koitt/steps/step-send-email.xml</config>
 		<config>src/com/koitt/config/spring-email.xml</config>
+		<config>src/com/koitt/steps/step-file-deleting.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

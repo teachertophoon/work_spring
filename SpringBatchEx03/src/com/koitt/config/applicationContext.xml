@@ -33,6 +33,6 @@
 	<import resource="../jobs/job-mysql-to-mail.xml" />
 	<import resource="../steps/step-mysql-to-csv.xml" />
 	<import resource="../steps/step-send-email.xml" />
-	<!-- <import resource="../steps/step-file-deleting.xml" /> -->
+	<import resource="../steps/step-file-deleting.xml" />
 
 </beans>
