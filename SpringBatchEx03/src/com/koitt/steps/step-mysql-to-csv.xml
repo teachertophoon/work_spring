@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!--
+		ItemReader 빈 생성
+		scope 속성이 step 인 경우: step마다 객체가 새롭게 생성
+		#{jobParameters['age']}: TestDrive에서 Job을 실행할 때 넘겨주는
+			JobParameters 객체에 'age'키에 원하는 조건의 나이 값을 담아서
+			아래에 있는 SQL문에 전달하게 된다.
+	-->
+	<bean id="mySqlItemReader" 
+		class="org.springframework.batch.item.database.JdbcCursorItemReader" scope="step">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sql" value="SELECT * FROM board" />
+		<property name="rowMapper">
+			<bean class="com.koitt.model.BoardRowMapper" />
+		</property>
+	</bean>
+	
+	<!-- ItemProcessor 빈 생성 -->
+	<bean id="itemProcessor" class="com.koitt.model.CustomItemProcessor" />
+	
+	<!-- ItemWriter 빈 생성 (2번 예제의 ItemWriter와 동일) -->
+	 <bean id="csvFileItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
+		<property name="resource" value="file:c:/sample/prac03/board.csv" />
+		<property name="appendAllowed" value="false" />
+		<property name="lineAggregator">
+			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+				<property name="delimiter" value="|" />
+				<property name="fieldExtractor">
+					<bean 
+					class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+						<property name="names" value="no, content, userNo, regdate, title, attachment" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+</beans>

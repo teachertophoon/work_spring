@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Job 빈 생성 -->
+	<batch:job id="mySqlToMailJob">
+		<batch:step id="step1" next="step2">
+			<batch:tasklet>
+				<batch:chunk reader="mySqlItemReader" processor="itemProcessor" 
+					writer="csvFileItemWriter" commit-interval="2" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="step2">
+			<batch:tasklet ref="sendEmailTasklet" />
+		</batch:step>
+	</batch:job>
+</beans>
