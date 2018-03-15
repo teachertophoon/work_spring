@@ -123,11 +123,11 @@ public class KakaoPayWebController {
 
 		// Map에 정보를 담는다. MultiValueMap 타입은 RestTemplate을 이용할 때 사용하는 Map 타입
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-		params.add("cid", "TC0ONETIME");					// 가맹점 코드번호 (테스트용)
-		params.add("tid", (String) session.getAttribute("tid"));
-		params.add("partner_order_id", (String) session.getAttribute("partner_order_id"));
-		params.add("partner_user_id", (String) session.getAttribute("partner_user_id"));
-		params.add("pg_token", token);
+		params.add("cid", "TC0ONETIME");							// 가맹점 코드번호 (테스트용)
+		params.add("tid", (String) session.getAttribute("tid"));	// 결제 고유번호
+		params.add("partner_order_id", (String) session.getAttribute("partner_order_id"));	// 주문번호
+		params.add("partner_user_id", (String) session.getAttribute("partner_user_id"));	// 회원 ID
+		params.add("pg_token", token);	// 쿼리문자열로 전달받은 token값
 
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
