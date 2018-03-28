@@ -10,10 +10,14 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- 스프링 애노테이션 적용 범위 -->
-	<context:component-scan base-package="com.koitt.board.dao"></context:component-scan>
+	<context:component-scan base-package="com.koitt"></context:component-scan>
+	
+	<!-- 비밀번호 암호화하기 위해 빈 객체 선언 -->
+	<bean id="bcryptEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
 	<!-- jdbc.properties 파일 불러오기 -->
-	<context:property-placeholder location="classpath:/test/config/jdbc.properties"/>
+	<context:property-placeholder location="classpath:/com/koitt/test/jdbc.properties"/>
 	
 	<!-- 불러온 jdbc.properties 내용을 이용해서 DataSource 빈 객체 만들기 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -42,10 +46,10 @@
 	-->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:/test/config/mybatis.xml" />
+		<property name="configLocation" value="classpath:/com/koitt/test/mybatis.xml" />
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:/test/config/mapper-*.xml</value>
+				<value>classpath:/com/koitt/test/mapper-*.xml</value>
 			</array>
 		</property>
 	</bean>
@@ -54,8 +58,4 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
-	
-	<!-- 비밀번호 암호화하기 위해 빈 객체 선언 -->
-	<bean id="bcryptEncoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 </beans>

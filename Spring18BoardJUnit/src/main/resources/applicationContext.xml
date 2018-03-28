@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- 스프링 애노테이션 적용 범위 -->
-	<context:component-scan base-package="test"></context:component-scan>
+	<context:component-scan base-package="com.koitt"></context:component-scan>
 	
 	<!-- 
 		Spring Security Login
@@ -63,7 +63,7 @@
 	</sec:authentication-manager>
 	
 	<!-- jdbc.properties 파일 불러오기 -->
-	<context:property-placeholder location="/WEB-INF/jdbc.properties"/>
+	<context:property-placeholder location="classpath:/jdbc.properties"/>
 	
 	<!-- 불러온 jdbc.properties 내용을 이용해서 DataSource 빈 객체 만들기 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -92,10 +92,10 @@
 	-->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="/WEB-INF/mybatis.xml" />
+		<property name="configLocation" value="classpath:/mybatis.xml" />
 		<property name="mapperLocations">
 			<array>
-				<value>/WEB-INF/mapper-*.xml</value>
+				<value>classpath:/mapper-*.xml</value>
 			</array>
 		</property>
 	</bean>

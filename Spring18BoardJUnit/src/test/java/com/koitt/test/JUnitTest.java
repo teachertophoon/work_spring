@@ -1,4 +1,4 @@
-package test;
+package com.koitt.test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -26,7 +26,7 @@ import com.koitt.board.model.Users;
 import com.koitt.board.model.UsersException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="/test/config/applicationContext.xml")
+@ContextConfiguration(locations="classpath:/com/koitt/test/applicationContext.xml")
 public class JUnitTest {
 	
 	@Autowired

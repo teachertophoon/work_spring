@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- 스프링 애노테이션 적용 범위 -->
-	<context:component-scan base-package="test"></context:component-scan>
+	<context:component-scan base-package="com.koitt"></context:component-scan>
 	
 	<!-- ViewResolver 빈 객체 생성 -->
 	<bean id="viewResolver" 
