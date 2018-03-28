@@ -1,4 +1,4 @@
-package test;
+package com.koitt;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
