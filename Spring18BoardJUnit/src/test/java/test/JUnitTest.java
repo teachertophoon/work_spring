@@ -26,7 +26,7 @@ import com.koitt.board.model.Users;
 import com.koitt.board.model.UsersException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:/test/config/applicationContext.xml")
+@ContextConfiguration(locations="/test/config/applicationContext.xml")
 public class JUnitTest {
 	
 	@Autowired
