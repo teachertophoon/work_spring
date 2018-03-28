@@ -1,4 +1,4 @@
-package com.koitt;
+package test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
