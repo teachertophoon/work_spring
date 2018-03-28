@@ -1,8 +1,11 @@
+#데이터베이스 인코딩 변경
+ALTER DATABASE koitt CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
 #DDL(Data Definition Language)
-DROP TABLE board;
-DROP TABLE users_authority;
-DROP TABLE authority;
-DROP TABLE users;
+DROP TABLE IF EXISTS board;
+DROP TABLE IF EXISTS users_authority;
+DROP TABLE IF EXISTS authority;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
 	no			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
