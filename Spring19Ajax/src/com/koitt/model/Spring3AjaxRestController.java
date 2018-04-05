@@ -2,11 +2,13 @@ package com.koitt.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -50,5 +52,19 @@ public class Spring3AjaxRestController {
 		
 		// name과 일치하는 차량이 없을경우 null 값을 리턴
 		return null;
+	}
+	
+	// 차량 한 대 추가하는 메소드
+	@ResponseBody
+	@RequestMapping(value="/car", method=RequestMethod.POST)
+	public void addCar(String name, String number) {
+		System.out.println(name + " / " + number);
+		Car item = new Car(name, number);
+		System.out.println("입력받은 차량: " + item.getName() + " / " + item.getNumber());
+		
+		/*
+		 * 입력받은 차량을 데이터베이스에 저장하면 되지만 현재 데이터베이스가 없으므로 
+		 * 출력까지만 구현
+		 */
 	}
 }
