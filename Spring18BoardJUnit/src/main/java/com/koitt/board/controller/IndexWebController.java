@@ -11,4 +11,9 @@ public class IndexWebController {
 	public String index() {		
 		return "index";
 	}
+	
+	@RequestMapping(value= {"/rest/test"}, method=RequestMethod.GET)
+	public String test() {
+		return "index";
+	}
 }
