@@ -46,7 +46,7 @@
 	</servlet>
 	
 	<!--
-		url 입력 시 맨 뒤에 .do라고 입력을 하면
+		모든 경로에서
 		DispatcherServlet을 사용하겠다는 뜻
 		(/upload 이하 경로는 DispatcherServlet을 통하면 이미지 출력이 안됨)
 	 -->	
