@@ -18,12 +18,13 @@ import com.koitt.board.model.UsersException;
 import com.koitt.board.service.UsersService;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/rest") // 아래 클래스에 선언된 RequestMapping value 값에 /rest를 공통으로 붙인다.
 public class UserRestController {
 	
 	@Autowired
 	private UsersService usersService;
 	
+	// produces: 서버가 응답으로 보낼 미디어 타입을 지정 (아래는 응답을 JSON으로 응답할 경우)
 	@RequestMapping(value="/user/login", method=RequestMethod.POST,
 			produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String, Object>> login(@RequestBody Users users) {

@@ -24,6 +24,10 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>
 	
+	<!-- 
+		Java 객체와 JSON 간의 변환에 대한 기본설정을 아래와 같이 작성하면
+		스프링이 알아서 기본 설정을 해준다.
+	-->
 	<mvc:annotation-driven />
 </beans>
 
