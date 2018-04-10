@@ -89,7 +89,11 @@
 						sessionStorage.setItem('base64Credentials', data.credentials);
 
 						// 로그인되면 home.html로 이동
-						$.mobile.changePage('home.html');
+						//$.mobile.changePage('home.html');
+
+						console.log(JSON.stringify(data));
+						console.log(JSON.stringify(textStatus));
+						console.log(JSON.stringify(xhr));
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
 						// 서버의 응답을 받으면 비활성했던 버튼 활성화

@@ -6,12 +6,12 @@ import java.util.Map;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponents;
 
 import com.koitt.board.model.Users;
 import com.koitt.board.model.UsersException;
@@ -24,10 +24,9 @@ public class UserRestController {
 	@Autowired
 	private UsersService usersService;
 	
-	// 사용자 로그인 @RequestMapping(value="/user/login", method=RequestMethod.POST)
-	@PostMapping(value="/user/login")
-	public ResponseEntity<Map<String, Object>> login(@RequestBody Users users, 
-			UriComponents ucBuilder) {
+	@RequestMapping(value="/user/login", method=RequestMethod.POST,
+			produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, Object>> login(@RequestBody Users users) {
 		
 		System.out.println(users);
 		
