@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, 
+		user-scalable=no, maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
+	<title>게시판 로그인</title>
+</head>
+<body>
+	<div data-role="page">
+		<div data-role="header">
+			<h1>게시판 로그인</h1>
+		</div>
+		
+		<div data-role="content">
+			<form id="frmLogin">
+				<div data-role="fieldcontain">
+					<label for="email">이메일</label>
+					<input type="email" name="email" id="email">
+				</div>
+				<div data-role="fieldcontain">
+					<label for="password">비밀번호</label>
+					<input type="password" name="password" id="password">
+				</div>
+				
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<a href="join.html" data-role="button" id="btnJoin">회원가입</a>
+					</div>
+					<div class="ui-block-b">
+						<a href="#" data-role="button" id="btnLogin">로그인</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script src="js/jquery-1.12.4.js"></script>
+	<script src="js/jquery.mobile-1.4.5.js"></script>
+	<script>
+		var REST_URI = 'http://192.168.0.11:8080/Spring20BoardRest/rest';
+
+		// jQueryMobile 페이지 관련 이벤트
+		
+		// 페이지를 생성하기 바로 전에 실행
+		$(document).on('pagebeforecreate', function() {
+			console.log('pagebeforecreate 이벤트 발생');
+		});
+
+		// 페이지를 생성하고 실행
+		$(document).on('pagecreate', function() {
+			console.log('pagecreate 이벤트 발생');
+		});
+
+		// 페이지를 이동하기 바로 전에 실행
+		$(document).on('pagebeforechange', function() {
+			console.log('pagebeforechange 이벤트 발생');
+		});
+
+		// 페이지를 이동하고 실행
+		$(document).on('pagechange', function() {
+			console.log('pagechange 이벤트 발생');
+		});
+	</script>
+</body>
+</html>

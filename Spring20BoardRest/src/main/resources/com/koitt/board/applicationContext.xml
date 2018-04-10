@@ -18,7 +18,7 @@
 		pattern: 해당 패턴의 url경로로 접근 시, REST API를 이용하겠다는 뜻
 		create-session: stateless는 세션을 이용하지 않는다는 뜻
 		
-		entry-ponit-ref: 응답관련 코드를 작성한 Bean 객체 이름을 작성
+		entry-point-ref: 응답관련 코드를 작성한 Bean 객체 이름을 작성
 		intercept-url pattern="/rest/**": /rest/ 이하의 모든 경로
 		access="permitAll": 모든 사용자가 접근이 가능하다는 뜻
 		csrf: REST API에서는 csrf를 사용하지 않기 때문에 disabled를 true로 설정
