@@ -1,7 +1,6 @@
 package com.koitt.board.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.koitt.board.model.FileException;
 import com.koitt.board.model.Users;
 import com.koitt.board.model.UsersException;
 import com.koitt.board.service.FileService;
@@ -47,7 +46,7 @@ public class UserRestController {
 			boolean isMatched = usersService.isPasswordMatched(
 					users.getEmail(), users.getPassword());
 
-			if (isMatched) {
+			if (isMatched) {				
 				// Base64 인코딩 전 평문
 				String plainCredentials = users.getEmail() + ":" + users.getPassword();
 
@@ -56,9 +55,13 @@ public class UserRestController {
 						plainCredentials.getBytes()));
 
 				System.out.println("인코딩 한 값: " + base64Credentials);
-
+				
+				// email 값을 이용하여 해당 사용자에 대한 정보를 DB로부터 가져오기
+				users = usersService.detailByEmail(users.getEmail());
+				
 				Map<String, Object> resultMap = new HashMap<>();
 				resultMap.put("credentials", base64Credentials);
+				resultMap.put("usersNo", users.getNo());
 
 				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 			}
@@ -97,6 +100,41 @@ public class UserRestController {
 			System.out.println(e.getMessage());
 			
 			// 서버 오류가 발생했다는 응답코드를 클라이언트로 전달
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	// 사용자 한 명의 데이터 가져오기
+	@RequestMapping(value="/user/{no}", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> detail(@PathVariable("no") Integer no,
+			HttpServletRequest req) {
+		
+		Users users = null;
+		
+		try {
+			if (no != null) {
+				users = usersService.detail(no);
+				
+				if (users != null) {
+					// 서버에 저장된 프로필 사진 경로 가져오기
+					String filename = users.getAttachment();
+					String imgPath = fileService.getImgPath(req, filename);
+					
+					Map<String, Object> resultMap = new HashMap<>();
+					resultMap.put("users", users);
+					resultMap.put("src", imgPath);
+					
+					return new ResponseEntity<>(resultMap, HttpStatus.OK);
+				}
+				else {
+					return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+				}
+			}
+			else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

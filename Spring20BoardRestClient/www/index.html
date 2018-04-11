@@ -87,6 +87,7 @@
 
 						// 서버로부터 전달받은 base64 인코딩 값을 클라이언트 저장소에 저장
 						sessionStorage.setItem('base64Credentials', data.credentials);
+						sessionStorage.setItem('usersNo', data.usersNo);
 
 						// 로그인되면 home.html로 이동
 						$.mobile.changePage('home.html');
@@ -155,6 +156,45 @@
 					}
 				})
 			});
+
+			// home.html 화면을 불러올 때 현재 사용자의 정보 가져오기
+			if (isCurrentPage('/home.html')) {
+
+				/*
+					url: /user/사용자번호 URL를 이용하여 사용자번호에 해당하는 사용자정보 가져오기
+					sessionStorage에 저장했던 usersNo를 이용
+
+					headers: 서버로 요청하는 헤더 내용 작성
+					authorization: 서버에서 전달받은 base64 인코딩 값을 작성
+								인증이 필요한 요청을 보낼때 항상 헤더에 추가한다.
+				*/
+				$.ajax({
+					type: 'get',
+					url: REST_URI + '/user/' + sessionStorage.getItem('usersNo'),
+					headers: {
+						authorization: 'Basic ' + sessionStorage.getItem('base64Credentials')
+					},
+					dataType: 'json',
+					success: function(data, textStatus, xhr) {
+						$('#home-email').text(data.users.email);
+						$('#home-name').text(data.users.name);
+						$('#home-attachment > img').attr('src', data.src);
+						for (var i=0; i < data.users.userTypes.length; i++) {
+							$('#home-authority')
+							.append('<div>' + data.users.userTypes[i].type + '</div>');
+						}
+
+						console.log(JSON.stringify(data));
+						console.log(JSON.stringify(textStatus));
+						console.log(JSON.stringify(xhr));
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log(JSON.stringify(jqXHR));
+						console.log(JSON.stringify(textStatus));
+						console.log(JSON.stringify(errorThrown));
+					}
+				});
+			}
 		});
 
 		// 앨리먼트 아이디에 해당하는 Form의 데이터를 JSON으로 리턴하는 함수
@@ -171,6 +211,20 @@
 			
 			return jsonData;
 		}
+
+		// 현재 페이지의 URL 주소 확인하는 함수
+		function isCurrentPage(pageUrl) {
+			var href = $(location).attr('href');
+			var index = href.lastIndexOf('/');
+			var currentUrl = href.substring(index);
+
+			console.log('href: ' + href);
+			console.log('index: ' + index);
+			console.log('currentUrl: ' + currentUrl);
+
+			return pageUrl == currentUrl;
+		}
+		 
 	</script>
 </body>
 </html>
