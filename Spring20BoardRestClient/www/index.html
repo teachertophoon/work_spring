@@ -110,6 +110,51 @@
 				});
 				
 			});
+
+			$('#btnJoinSubmit').unbind('click');
+			$('#btnJoinSubmit').bind('click', function(event) {
+				// 기본 이벤트 동작하지 않도록 하기
+				event.preventDefault();
+
+				// FormData 가져오기
+				//var formData = getFormData('frmJoin');
+				var form = $('#frmJoin')[0];
+				var formData = new FormData(form);
+
+				// 두 번 실행 방지를 위해 버튼 비활성
+				$('#btnJoinSubmit').prop('disabled', true);
+
+				/*
+					파일을 전송하기 위해서는 enctype을 multipart/form-data로 설정하여
+					서버에 전송을 해야하는데,
+					multipart/form-data를 사용하게 되면 form에 입력한 내용은
+					JSON 형태로 보낼 수 없게 된다.
+					따라서 contentType의 값은 false로 설정한다.
+				*/
+				$.ajax({
+					type: 'post',
+					url: REST_URI + '/user',
+					enctype: 'multipart/form-data',
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function(data, textStatus, xhr) {
+						$('#btnJoinSubmit').prop('disabled', false);
+						$.mobile.changePage('index.html');
+
+						console.log(JSON.stringify(data));
+						console.log(JSON.stringify(textStatus));
+						console.log(JSON.stringify(xhr));
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						$('#btnJoinSubmit').prop('disabled', false);
+
+						console.log(JSON.stringify(jqXHR));
+						console.log(JSON.stringify(textStatus));
+						console.log(JSON.stringify(errorThrown));
+					}
+				})
+			});
 		});
 
 		// 앨리먼트 아이디에 해당하는 Form의 데이터를 JSON으로 리턴하는 함수
