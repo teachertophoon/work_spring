@@ -179,14 +179,85 @@
 						$('#home-email').text(data.users.email);
 						$('#home-name').text(data.users.name);
 						$('#home-attachment > img').attr('src', data.src);
-						for (var i=0; i < data.users.userTypes.length; i++) {
+						for (var i=0; i < data.users.authorities.length; i++) {
 							$('#home-authority')
-							.append('<div>' + data.users.userTypes[i].type + '</div>');
+							.append('<div>' + data.users.authorities[i].type + '</div>');
 						}
 
 						console.log(JSON.stringify(data));
 						console.log(JSON.stringify(textStatus));
 						console.log(JSON.stringify(xhr));
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log(JSON.stringify(jqXHR));
+						console.log(JSON.stringify(textStatus));
+						console.log(JSON.stringify(errorThrown));
+					}
+				});
+			}
+			// 글 목록 화면
+			else if (isCurrentPage('/board-list.html')) {
+				$.ajax({
+					type: 'get',
+					url: REST_URI + '/board',
+					headers: {
+						authorization: 'Basic ' + sessionStorage.getItem('base64Credentials')
+					},
+					dataType: 'json',
+					success: function(data, textStatus, xhr) {
+						// 클라이언트 화면에 글 목록 출력
+						for (var i = 0; i < data.boardList.length; i++) {
+							$('#board-list-listview')
+							.append("<li><a href='board/" + data.boardList[i].no + "'>"
+									+ data.boardList[i].title + "</a></li>");
+						}
+						$('#board-list-listview').listview('refresh');
+
+						// 글 목록 각각마다 클릭이벤트 추가
+						$('#board-list-listview li a').unbind('click');
+						$('#board-list-listview li a').bind('click', function(event) {
+							// 기본 이벤트 동작하지 않도록 하기
+							event.preventDefault();
+
+							// board/글번호
+							var href = $(this).attr('href');
+
+							// 글 상세보기 REST API 주소
+							sessionStorage.setItem('currentBoardUrl', href);
+
+							// 글 상세보기 페이지로 이동
+							$.mobile.changePage('board-detail.html');
+						});
+
+						console.log(JSON.stringify(data));
+						console.log(JSON.stringify(textStatus));
+						console.log(JSON.stringify(xhr));
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log(JSON.stringify(jqXHR));
+						console.log(JSON.stringify(textStatus));
+						console.log(JSON.stringify(errorThrown));
+					}
+				});
+			}
+			// 글 상세보기 화면
+			else if (isCurrentPage('/board-detail.html')) {
+				$.ajax({
+					type: 'get',
+					url: REST_URI + '/' + sessionStorage.getItem('currentBoardUrl'),
+					headers: {
+						authorization: 'Basic ' + sessionStorage.getItem('base64Credentials')
+					},
+					dataType: 'json',
+					success: function(data, textStatus, xhr) {
+						$('#board-detail-no').text(data.item.no);
+						$('#board-detail-name').text(data.item.users.name);
+						$('#board-detail-regdate').text(data.item.regdate);
+						$('#board-detail-title').text(data.item.title);
+						$('#board-detail-content').text(data.item.content);
+						$('#board-detail-attachment')
+							.attr('href', data.src)
+							.text(data.item.attachment);
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
 						console.log(JSON.stringify(jqXHR));
