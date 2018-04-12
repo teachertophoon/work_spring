@@ -252,7 +252,13 @@
 					success: function(data, textStatus, xhr) {
 						$('#board-detail-no').text(data.item.no);
 						$('#board-detail-name').text(data.item.users.name);
-						$('#board-detail-regdate').text(data.item.regdate);
+
+						// 1970년 1월 1일부터 현재까지의 밀리초를 한국 시간으로 변경
+						var krDate = new Date(data.item.regdate)
+										.toLocaleString('ko-KR', {timeZone: 'Asia/Seoul'});
+
+						// 변경한 한국시간을 페이지에 출력
+						$('#board-detail-regdate').text(krDate);
 						$('#board-detail-title').text(data.item.title);
 						$('#board-detail-content').text(data.item.content);
 						$('#board-detail-attachment')
@@ -264,6 +270,45 @@
 						console.log(JSON.stringify(textStatus));
 						console.log(JSON.stringify(errorThrown));
 					}
+				});
+			}
+			// 글 작성하기 화면
+			else if (isCurrentPage('/board-add.html')) {
+				$('#btnBoardSubmit').unbind('click');
+				$('#btnBoardSubmit').bind('click', function(event) {
+					// 기본 이벤트 동작하지 않도록 하기
+					event.preventDefault();
+
+					// #board-add-users-no에 현재 사용자 번호 값을 설정
+					$('#board-add-users-no').val(sessionStorage.getItem('usersNo'));
+
+					// FormData 가져오기
+					var form = $('#frmBoard')[0];
+					var formData = new FormData(form);
+
+					// 두 번 실행 방지를 위해 버튼 비활성
+					$('#btnBoardSubmit').prop('disabled', true);
+
+					$.ajax({
+						type: 'post',
+						url: REST_URI + '/board',
+						headers: {
+							authorization: 'Basic ' + sessionStorage.getItem('base64Credentials')
+						},
+						enctype: 'multipart/form-data',
+						data: formData,
+						processData: false,
+						contentType: false,
+						success: function(data, textStatus, xhr) {
+							$('#btnBoardSubmit').prop('disabled', false);
+							$.mobile.changePage('board-list.html');
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							$('#btnBoardSubmit').prop('disabled', false);
+							console.log(JSON.stringify(jqXHR));
+							console.log(JSON.stringify(errorThrown));
+						}
+					});
 				});
 			}
 		});
