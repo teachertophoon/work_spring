@@ -57,6 +57,7 @@ public class BoardRestController {
 			}
 
 		} catch (BoardException e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -97,6 +98,7 @@ public class BoardRestController {
 			}
 
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -125,6 +127,7 @@ public class BoardRestController {
 			return new ResponseEntity<>(HttpStatus.CREATED);
 
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -171,6 +174,7 @@ public class BoardRestController {
 			return new ResponseEntity<>(HttpStatus.OK);
 
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

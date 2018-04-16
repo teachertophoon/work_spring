@@ -74,7 +74,6 @@ public class FileServiceImpl implements FileService {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			throw new FileException(e.getMessage());
 		}
 

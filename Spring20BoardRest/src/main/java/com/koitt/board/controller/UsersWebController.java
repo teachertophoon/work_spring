@@ -143,6 +143,7 @@ public class UsersWebController {
 			uploadPath = fileService.getUploadPath(request);
 			
 		} catch (UsersException e) {
+			System.out.println(e.getMessage());
 			request.setAttribute("error", "server");
 		}
 		

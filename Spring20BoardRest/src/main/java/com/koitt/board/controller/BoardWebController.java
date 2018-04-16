@@ -49,6 +49,7 @@ public class BoardWebController {
 			list = boardService.list();
 			
 		} catch (BoardException e) {
+			System.out.println(e.getMessage());
 			// 예외가 발생하면 error키의 값을 이용하여 JSP에 표시
 			model.addAttribute("error", "server");
 		}
@@ -146,8 +147,10 @@ public class BoardWebController {
 			boardService.add(board);
 			
 		} catch (BoardException e) {
+			System.out.println(e.getMessage());
 			request.setAttribute("error", "server");
 		} catch (FileException e) {
+			System.out.println(e.getMessage());
 			request.setAttribute("error", "file");
 		}
 		
@@ -173,8 +176,10 @@ public class BoardWebController {
 			fileService.remove(request, toDeleteFilename);
 			
 		} catch (BoardException e) {
+			System.out.println(e.getMessage());
 			model.addAttribute("error", "server");
 		} catch (FileException e) {
+			System.out.println(e.getMessage());
 			model.addAttribute("error", "file");
 		}
 		
@@ -195,6 +200,7 @@ public class BoardWebController {
 			board = boardService.detail(no);
 			
 		} catch (BoardException e) {
+			System.out.println(e.getMessage());
 			model.addAttribute("error", "server");
 		}
 		

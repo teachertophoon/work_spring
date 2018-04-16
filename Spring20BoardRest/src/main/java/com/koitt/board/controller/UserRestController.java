@@ -69,6 +69,7 @@ public class UserRestController {
 			}
 
 		} catch (UsersException e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -134,6 +135,7 @@ public class UserRestController {
 			}
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
